@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useMemo } from "react"
 import { Rnd } from "react-rnd"
 import { motion } from "framer-motion"
-import { X, Minus, Maximize } from "lucide-react"
+import { X, Minus } from "lucide-react"
 
 const Window = ({
   id,
@@ -78,14 +78,6 @@ const Window = ({
             <Minus size={14} />
           </button>
           <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-green-400/90 text-green-900 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-green-200/60 shadow"
-            onClick={handleMaximize}
-            tabIndex={0}
-            aria-label="Maximize"
-          >
-            <Maximize size={14} />
-          </button>
-          <button
             className="flex h-6 w-6 items-center justify-center rounded-full bg-red-400/90 text-red-900 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-200/60 shadow"
             onClick={handleClose}
             tabIndex={0}
@@ -99,7 +91,7 @@ const Window = ({
         {children}
       </div>
     </motion.div>
-  ), [title, handleMinimize, handleMaximize, handleClose, children])
+  ), [title, handleMinimize, handleClose, children])
 
   return isMaximized ? (
     <Rnd

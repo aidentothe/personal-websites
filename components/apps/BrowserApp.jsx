@@ -86,8 +86,8 @@ const resume = {
       date: "June 2023 – March 2025",
       bullets: [
         "Conducted cold outreach for hackathon sponsorships, securing over $250,000 in rewards",
-        "Ran 5 person Social Media Team, growing to 1mil+ page visits, 500k+ views on Instagram",
-        "Created Illuminate and OpenGrant, both with over 20k active users"
+        "Ran 5 person Social Media Team, growing to 1 M+ page visits, 500 K+ views on Instagram",
+        "Created Illuminate and OpenGrant, both with over 20 K active users"
       ],
     },
   ],
@@ -109,104 +109,129 @@ const Section = ({ title, children }) => (
 
 const BrowserApp = () => {
   return (
-    <div className="min-h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8 flex flex-col items-center font-sans overflow-y-auto">
-      {/* Header */}
-      <div className="max-w-3xl w-full bg-white/10 rounded-2xl shadow-xl p-8 mb-8 text-center border border-white/10">
+    <div className="h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 font-sans flex flex-col overflow-x-hidden">
+      {/* Fixed Header */}
+      <header className="flex-none max-w-3xl w-full mx-auto bg-white/10 rounded-2xl shadow-xl p-8 mt-8 text-center border border-white/10">
         <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{resume.name}</h1>
-        <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg mb-2">
+        <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg">
           {resume.contact.map((c) => (
             <span key={c.label} className="flex items-center gap-1">
               {c.value}
             </span>
           ))}
         </div>
-      </div>
-      <div className="max-w-3xl w-full bg-white/5 rounded-2xl shadow-lg p-8 border border-white/10">
-        {/* Education */}
-        <Section title="Education">
-          <ul>
-            {resume.education.map((edu) => (
-              <li key={edu.school} className="mb-4">
-                <div className="flex justify-between items-center flex-wrap">
-                  <span className="font-semibold text-white text-lg">{edu.school}</span>
-                  <span className="text-sm text-gray-300">{edu.date}</span>
-                </div>
-                <div className="text-blue-200 mb-1">{edu.degree} <span className="text-gray-400">| {edu.location}</span></div>
-                {edu.achievements && (
-                  <ul className="list-disc list-inside text-gray-300 text-sm ml-2">
-                    {edu.achievements.map((a, i) => <li key={i}>{a}</li>)}
+      </header>
+
+      {/* Scrollable Main Content */}
+      <main className="flex-1 overflow-y-auto px-4 py-8 flex flex-col items-center">
+        <div className="max-w-3xl w-full bg-white/5 rounded-2xl shadow-lg p-8 border border-white/10">
+          {/* Education */}
+          <Section title="Education">
+            <ul>
+              {resume.education.map((edu) => (
+                <li key={edu.school} className="mb-4">
+                  <div className="flex justify-between items-center flex-wrap">
+                    <span className="font-semibold text-white text-lg">{edu.degree}</span>
+                    <span className="text-sm text-gray-300">{edu.date}</span>
+                  </div>
+                  <div className="text-blue-200">{edu.school}</div>
+                  <div className="text-blue-200 mb-1">{edu.location}</div>
+                  {edu.achievements && (
+                    <ul className="list-disc list-inside text-gray-300 text-sm ml-2">
+                      {edu.achievements.map((a, i) => (
+                        <li key={i}>{a}</li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* Experience */}
+          <Section title="Experience">
+            <ul>
+              {resume.experience.map((exp) => (
+                <li key={exp.title + exp.company} className="mb-6">
+                  <div className="flex justify-between items-center flex-wrap">
+                    <span className="font-semibold text-white text-lg">{exp.title}, {exp.company}</span>
+                    <span className="text-sm text-gray-300">{exp.date}</span>
+                  </div>
+                  <div className="text-blue-200 mb-1">{exp.location}</div>
+                  <ul className="list-disc list-inside text-gray-300 ml-2">
+                    {exp.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
                   </ul>
-                )}
-              </li>
-            ))}
-          </ul>
-        </Section>
-        {/* Experience */}
-        <Section title="Experience">
-          <ul>
-            {resume.experience.map((exp) => (
-              <li key={exp.title + exp.company} className="mb-6">
-                <div className="flex justify-between items-center flex-wrap">
-                  <span className="font-semibold text-white text-lg">{exp.title}, {exp.company}</span>
-                  <span className="text-sm text-gray-300">{exp.date}</span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* Projects */}
+          <Section title="Projects">
+            <ul>
+              {resume.projects.map((proj) => (
+                <li key={proj.name} className="mb-6">
+                  <div className="flex justify-between items-center flex-wrap">
+                    <span className="font-semibold text-white text-lg">{proj.name}</span>
+                    <span className="text-sm text-gray-300">{proj.date}</span>
+                  </div>
+                  <div className="text-blue-200 mb-1">{proj.tech}</div>
+                  <ul className="list-disc list-inside text-gray-300 ml-2">
+                    {proj.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* Technical Skills */}
+          <Section title="Technical Skills">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <div className="font-semibold text-blue-300 mb-1">Languages</div>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {resume.skills.Languages.map((s) => (
+                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
+                  ))}
                 </div>
-                <div className="text-blue-200 mb-1">{exp.location}</div>
-                <ul className="list-disc list-inside text-gray-300 ml-2">
-                  {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </Section>
-        {/* Projects */}
-        <Section title="Projects">
-          <ul>
-            {resume.projects.map((proj) => (
-              <li key={proj.name} className="mb-6">
-                <div className="flex justify-between items-center flex-wrap">
-                  <span className="font-semibold text-white text-lg">{proj.name}</span>
-                  <span className="text-sm text-gray-300">{proj.date}</span>
+                <div className="font-semibold text-blue-300 mb-1">Frameworks</div>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {resume.skills.Frameworks.map((s) => (
+                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
+                  ))}
                 </div>
-                <div className="text-blue-200 mb-1">{proj.tech}</div>
-                <ul className="list-disc list-inside text-gray-300 ml-2">
-                  {proj.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </Section>
-        {/* Technical Skills */}
-        <Section title="Technical Skills">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-200">
-            <div>
-              <div className="font-semibold text-blue-300 mb-1">Languages</div>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {resume.skills.Languages.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
               </div>
-              <div className="font-semibold text-blue-300 mb-1">Frameworks</div>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {resume.skills.Frameworks.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
+              <div>
+                <div className="font-semibold text-blue-300 mb-1">Developer Tools</div>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {resume.skills.Tools.map((s) => (
+                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
+                  ))}
+                </div>
+                <div className="font-semibold text-blue-300 mb-1">Cybersecurity</div>
+                <div className="flex flex-wrap gap-2">
+                  {resume.skills.Cybersecurity.map((s) => (
+                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
+                  ))}
+                </div>
               </div>
             </div>
-            <div>
-              <div className="font-semibold text-blue-300 mb-1">Developer Tools</div>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {resume.skills.Tools.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
-              </div>
-              <div className="font-semibold text-blue-300 mb-1">Cybersecurity</div>
-              <div className="flex flex-wrap gap-2">
-                {resume.skills.Cybersecurity.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
-              </div>
+          </Section>
+
+          {/* Hobbies */}
+          <Section title="Hobbies">
+            <div className="flex flex-wrap gap-3 text-blue-200">
+              {resume.hobbies.map((h) => (
+                <span key={h} className="bg-white/10 px-3 py-1 rounded-full shadow text-base">{h}</span>
+              ))}
             </div>
-          </div>
-        </Section>
-        {/* Hobbies */}
-        <Section title="Hobbies">
-          <div className="flex flex-wrap gap-3 text-blue-200">
-            {resume.hobbies.map((h) => <span key={h} className="bg-white/10 px-3 py-1 rounded-full shadow text-base">{h}</span>)}
-          </div>
-        </Section>
-      </div>
+          </Section>
+        </div>
+      </main>
     </div>
   )
 }

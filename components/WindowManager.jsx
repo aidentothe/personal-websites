@@ -40,7 +40,8 @@ const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
       key: 'spotify',
       title: 'Spotify',
       minY,
-      App: SpotifyApp
+      App: SpotifyApp,
+      minHeight: 400,
     },
     {
       key: 'photos',
@@ -52,7 +53,7 @@ const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {windowConfigs.map(({ key, title, minY, App }) =>
+      {windowConfigs.map(({ key, title, minY, App, minHeight }) =>
         windows[key].visible && (
           <Window
             key={key}
@@ -84,6 +85,7 @@ const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
             }
             onMinimize={handleMinimize}
             onClose={handleClose}
+            minHeight={minHeight}
           >
             <App />
           </Window>
