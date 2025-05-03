@@ -1,199 +1,211 @@
-"use client"
-
-import { useState } from "react"
 import { motion } from "framer-motion"
 
-const tabs = [
-  { id: "about", label: "About Me" },
-  { id: "projects", label: "Projects" },
-  { id: "socials", label: "Socials" },
-  { id: "resume", label: "Resume" },
-]
+const resume = {
+  name: "Aiden Huang",
+  contact: [
+    { label: "Phone", value: "650-213-7759" },
+    { label: "Email", value: "aidenhuang.pro@gmail.com" },
+  ],
+  education: [
+    {
+      school: "University of California, Berkeley",
+      degree: "B.S. Electrical Engineering & Computer Science",
+      location: "Berkeley, CA",
+      date: "Aug 2025 - May 2029",
+    },
+    {
+      school: "Monta Vista High School",
+      degree: "High School Diploma",
+      location: "Cupertino, CA",
+      date: "Aug 2021 – May 2025",
+      achievements: [
+        "NSA Codebreaker High Performer/ Stokes Scholar",
+        "USACO Plat, 4x AIME, FRC Robotics Lead"
+      ],
+    },
+  ],
+  experience: [
+    {
+      title: "Software Engineering Intern",
+      company: "NextSilicon",
+      location: "Tel Aviv, Israel (Remote)",
+      date: "June 2024 – Aug 2024",
+      bullets: [
+        "Developed Maverick-2, focusing on optimizing software-defined hardware acceleration for HPC workloads",
+        "Integrated support for models like OpenMP and Kokkos, enhancing accessibility and reducing code porting efforts",
+        "Collaborated with other teams to profile and improve performance of HPC applications on the Maverick-2 platform"
+      ],
+    },
+    {
+      title: "HPC Intern",
+      company: "ETH Zurich",
+      location: "Remote",
+      date: "Mar 2023 – Present",
+      bullets: [
+        "Optimized PyTorch model training on multi-node SLURM clusters using Horovod, reducing epoch time by 40%",
+        "Engineered data ingestion pipeline to process 50TB+ datasets using Dask and HDF5, achieving 6x throughput",
+        "Built HPC–cloud workload manager using Terraform + Python CLI, enabling serverless access to on-prem compute"
+      ],
+    },
+    {
+      title: "Research Assistant",
+      company: "UC Santa Cruz",
+      location: "Santa Cruz, CA",
+      date: "June 2022 – Present",
+      bullets: [
+        "Authored NeurIPS 2024 paper on spiking neural networks for autonomous navigation in adversarial environments",
+        "Boosted self-driving system performance by 35% in urban scenarios through biologically inspired rewards",
+        "Ran extensive simulations to validate safe deployment across edge cases in multi-agent coordination"
+      ],
+    },
+    {
+      title: "AI Research Assistant",
+      company: "Harvard University",
+      location: "Remote",
+      date: "May 2023 – Dec 2023",
+      bullets: [
+        "Built LLM-based tool using OpenAI API + custom prompt engineering, speeding up research script generation",
+        "Automated genomic data processing pipelines to model murine DNA structures across 500GB+ datasets",
+        "Containerized workflow using Docker and deployed reproducible research environments on GCP"
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: "Library Compute Cluster",
+      tech: "Python, Kubernetes, Docker, Shell Scripting, SSH Tunneling",
+      date: "Feb 2024 – Present",
+      bullets: [
+        "Created Kubernetes cluster across 20+ unused school library desktops, enabling private multi-node compute",
+        "Executed over 1,000 hours of PyTorch training and fuzz testing for real-world ML and security experimentation"
+      ],
+    },
+    {
+      name: "Project Empower",
+      tech: "Python, Pandas, Scikit-learn, Flask, React",
+      date: "June 2023 – Present",
+      bullets: [
+        "Conducted cold outreach for hackathon sponsorships, securing over $250,000 in rewards",
+        "Ran 5 person Social Media Team, growing to 1mil+ page visits, 500k+ views on Instagram",
+        "Created Illuminate and OpenGrant, both with over 20k active users"
+      ],
+    },
+  ],
+  skills: {
+    Languages: ["Java", "Python", "C++", "JavaScript", "SQL (PostgreSQL)"],
+    Frameworks: ["React", "Node.js", "Flask", "PyTorch", "TensorFlow"],
+    Tools: ["Git", "Docker", "Google Cloud Platform", "SLURM"],
+    Cybersecurity: ["Kali Linux", "nmap", "Ghidra", "Burpsuite", "Wireshark"],
+  },
+  hobbies: ["Thrifting", "Poker", "Chess (2000 ELO)", "Baseball", "Cycling"],
+}
+
+const Section = ({ title, children }) => (
+  <section className="mb-10">
+    <h2 className="text-2xl font-bold text-blue-400 mb-3 tracking-wide uppercase">{title}</h2>
+    <div>{children}</div>
+  </section>
+)
 
 const BrowserApp = () => {
-  const [activeTab, setActiveTab] = useState("about")
-
   return (
-    <div className="flex h-full flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 font-sans relative">
-      {/* Address/Search Bar */}
-      <div className="flex items-center px-4 py-2 bg-white/10 backdrop-blur-md rounded-t-xl shadow border-b border-white/10">
-        <svg className="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
-        <input
-          className="flex-1 bg-transparent text-white placeholder-gray-400 px-2 py-1 focus:outline-none"
-          placeholder="Search or enter address..."
-          disabled
-        />
-        <button className="ml-2 px-2 py-1 bg-blue-500/80 hover:bg-blue-400/80 text-white rounded shadow transition">Go</button>
-      </div>
-      {/* Bookmarks Bar */}
-      <div className="flex items-center space-x-3 px-4 py-1 bg-black/10 border-b border-white/10">
-        <a href="#" className="flex items-center space-x-1 text-blue-300 hover:text-blue-100 transition"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 0 1 1 1v14l-5-5H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7zm0 0h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2l-5 5V3a1 1 0 0 1 1-1z"/></svg><span>Docs</span></a>
-        <a href="#" className="flex items-center space-x-1 text-green-300 hover:text-green-100 transition"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4zm1 3h10v10H5V6z"/></svg><span>GitHub</span></a>
-        <a href="#" className="flex items-center space-x-1 text-pink-300 hover:text-pink-100 transition"><svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm1 12h-2v-2h2v2zm0-4h-2V7h2v3z"/></svg><span>Blog</span></a>
-      </div>
-      {/* Tabs */}
-      <div className="flex items-center bg-gray-800/80 px-4 py-2 rounded-t-lg mt-1 shadow-inner">
-        <div className="flex space-x-1">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`relative px-4 py-2 text-sm font-medium rounded-t-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/40 shadow-md ${
-                activeTab === tab.id ? "text-white bg-blue-700/80" : "text-gray-200 hover:bg-blue-800/30"
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-              {activeTab === tab.id && (
-                <motion.div className="absolute bottom-0 left-2 right-2 h-1 bg-blue-400/80 rounded-full" layoutId="activeTab" />
-              )}
-            </button>
+    <div className="min-h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8 flex flex-col items-center font-sans overflow-auto">
+      {/* Header */}
+      <div className="max-w-3xl w-full bg-white/10 rounded-2xl shadow-xl p-8 mb-8 text-center border border-white/10">
+        <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{resume.name}</h1>
+        <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg mb-2">
+          {resume.contact.map((c) => (
+            <span key={c.label} className="flex items-center gap-1">
+              {c.value}
+            </span>
           ))}
         </div>
       </div>
-      {/* Tab Content */}
-      <motion.div
-        className="flex-1 overflow-auto bg-gradient-to-br from-gray-800/70 to-gray-900/80 p-6"
-        key={activeTab}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -16 }}
-        transition={{ duration: 0.32 }}
-      >
-        {activeTab === "about" && <AboutTab />}
-        {activeTab === "projects" && <ProjectsTab />}
-        {activeTab === "socials" && <SocialsTab />}
-        {activeTab === "resume" && <ResumeTab />}
-      </motion.div>
-    </div>
-  )
-}
-
-const AboutTab = () => {
-  return (
-    <div className="max-w-3xl mx-auto text-white">
-      <h1 className="text-3xl font-bold mb-6">About Me</h1>
-      <p className="mb-4">
-        I'm Aiden Huang — a software engineer with a passion for efficient systems, distributed computing, and AI.
-        I’ve interned at Simular.AI, ETH Zurich, UCSC, and Harvard, working on LLM pipelines, SLURM clusters, and autonomous decision systems.
-      </p>
-      <p className="mb-4">
-        I’m currently experimenting with novel ways to present information using first principles, like the site you’re viewing.
-      </p>
-      <h2 className="text-xl font-semibold mt-6 mb-3">Tech Stack</h2>
-      <div className="flex flex-wrap gap-2">
-        {[
-          "Python", "C++", "JavaScript", "React", "Next.js", "Tailwind", "FastAPI",
-          "PyTorch", "TensorFlow", "GCP", "Docker", "Kubernetes", "SLURM", "Terraform",
-        ].map((skill) => (
-          <span key={skill} className="px-3 py-1 bg-gray-800 rounded-full text-sm">
-            {skill}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const ProjectsTab = () => {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Sample Project Card 1 */}
-      <div className="bg-white/10 rounded-xl shadow-lg p-5 hover:scale-[1.025] transition-transform duration-200 border border-white/10">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Project 1" className="rounded-lg mb-3 h-36 w-full object-cover" />
-        <h3 className="text-xl font-bold text-blue-200 mb-2">AI Workflow Builder</h3>
-        <p className="text-gray-200 mb-2">Drag-and-drop interface for building LLM pipelines, with real-time visualization and cloud execution.</p>
-        <a href="#" className="text-blue-400 hover:underline">View Project →</a>
-      </div>
-      {/* Sample Project Card 2 */}
-      <div className="bg-white/10 rounded-xl shadow-lg p-5 hover:scale-[1.025] transition-transform duration-200 border border-white/10">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 2" className="rounded-lg mb-3 h-36 w-full object-cover" />
-        <h3 className="text-xl font-bold text-green-200 mb-2">Distributed Cluster Monitor</h3>
-        <p className="text-gray-200 mb-2">Live dashboard for monitoring SLURM clusters, GPU/CPU usage, and job scheduling analytics.</p>
-        <a href="#" className="text-green-400 hover:underline">View Project →</a>
-      </div>
-      {/* Add more cards as desired */}
-    </div>
-  )
-}
-
-const SocialsTab = () => {
-  const socials = [
-    {
-      name: "GitHub",
-      url: "https://github.com/aidentothe",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-    },
-    {
-      name: "LinkedIn",
-      url: "https://www.linkedin.com/in/aidentothe",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg",
-    },
-    {
-      name: "Portfolio",
-      url: "https://aidentothe.com",
-      icon: "https://cdn-icons-png.flaticon.com/512/841/841364.png",
-    },
-  ]
-
-  return (
-    <div className="max-w-2xl mx-auto text-white">
-      <h1 className="text-3xl font-bold mb-6">Find Me Online</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {socials.map((social) => (
-          <a
-            key={social.name}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 p-4 rounded-lg flex flex-col items-center shadow-md"
-          >
-            <img src={social.icon} alt={social.name} className="w-10 h-10 mb-2" />
-            <span className="text-lg font-semibold">{social.name}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const ResumeTab = () => {
-  const resumeUrl = "https://drive.google.com/file/d/1PQgigV-Jd_1boY1-ybn09N5V8UqquBuD/preview"
-  const downloadUrl = "https://drive.google.com/uc?export=download&id=1PQgigV-Jd_1boY1-ybn09N5V8UqquBuD"
-
-  return (
-    <div className="max-w-4xl mx-auto text-white h-full flex flex-col">
-      <h1 className="text-3xl font-bold mb-4">Resume</h1>
-      <div className="mb-4">
-        <a
-          href={downloadUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-150"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-            />
-          </svg>
-          Download Resume
-        </a>
-      </div>
-      <div className="flex-1 bg-gray-800 rounded-lg overflow-hidden">
-        <iframe
-          src={resumeUrl}
-          className="w-full h-full"
-          title="Aiden Huang Resume"
-          allow="autoplay"
-        ></iframe>
+      <div className="max-w-3xl w-full bg-white/5 rounded-2xl shadow-lg p-8 border border-white/10">
+        {/* Education */}
+        <Section title="Education">
+          <ul>
+            {resume.education.map((edu) => (
+              <li key={edu.school} className="mb-4">
+                <div className="flex justify-between items-center flex-wrap">
+                  <span className="font-semibold text-white text-lg">{edu.school}</span>
+                  <span className="text-sm text-gray-300">{edu.date}</span>
+                </div>
+                <div className="text-blue-200 mb-1">{edu.degree} <span className="text-gray-400">| {edu.location}</span></div>
+                {edu.achievements && (
+                  <ul className="list-disc list-inside text-gray-300 text-sm ml-2">
+                    {edu.achievements.map((a, i) => <li key={i}>{a}</li>)}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Section>
+        {/* Experience */}
+        <Section title="Experience">
+          <ul>
+            {resume.experience.map((exp) => (
+              <li key={exp.title + exp.company} className="mb-6">
+                <div className="flex justify-between items-center flex-wrap">
+                  <span className="font-semibold text-white text-lg">{exp.title}, {exp.company}</span>
+                  <span className="text-sm text-gray-300">{exp.date}</span>
+                </div>
+                <div className="text-blue-200 mb-1">{exp.location}</div>
+                <ul className="list-disc list-inside text-gray-300 ml-2">
+                  {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </Section>
+        {/* Projects */}
+        <Section title="Projects">
+          <ul>
+            {resume.projects.map((proj) => (
+              <li key={proj.name} className="mb-6">
+                <div className="flex justify-between items-center flex-wrap">
+                  <span className="font-semibold text-white text-lg">{proj.name}</span>
+                  <span className="text-sm text-gray-300">{proj.date}</span>
+                </div>
+                <div className="text-blue-200 mb-1">{proj.tech}</div>
+                <ul className="list-disc list-inside text-gray-300 ml-2">
+                  {proj.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </Section>
+        {/* Technical Skills */}
+        <Section title="Technical Skills">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-200">
+            <div>
+              <div className="font-semibold text-blue-300 mb-1">Languages</div>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {resume.skills.Languages.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
+              </div>
+              <div className="font-semibold text-blue-300 mb-1">Frameworks</div>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {resume.skills.Frameworks.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold text-blue-300 mb-1">Developer Tools</div>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {resume.skills.Tools.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
+              </div>
+              <div className="font-semibold text-blue-300 mb-1">Cybersecurity</div>
+              <div className="flex flex-wrap gap-2">
+                {resume.skills.Cybersecurity.map((s) => <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>)}
+              </div>
+            </div>
+          </div>
+        </Section>
+        {/* Hobbies */}
+        <Section title="Hobbies">
+          <div className="flex flex-wrap gap-3 text-blue-200">
+            {resume.hobbies.map((h) => <span key={h} className="bg-white/10 px-3 py-1 rounded-full shadow text-base">{h}</span>)}
+          </div>
+        </Section>
       </div>
     </div>
   )
