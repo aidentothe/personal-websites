@@ -83,7 +83,7 @@ const resume = {
     {
       name: "Project Empower",
       tech: "Python, Pandas, Scikit-learn, Flask, React",
-      date: "June 2023 – Present",
+      date: "June 2023 – March 2025",
       bullets: [
         "Conducted cold outreach for hackathon sponsorships, securing over $250,000 in rewards",
         "Ran 5 person Social Media Team, growing to 1mil+ page visits, 500k+ views on Instagram",
