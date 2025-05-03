@@ -1,6 +1,11 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 
+// IE-inspired colors
+const IE_BLUE = "#1b5790"
+const IE_LIGHT = "#e5f1fb"
+const IE_BORDER = "#6ba4d6"
+
 const resume = {
   name: "Aiden Huang",
   contact: [
@@ -130,169 +135,78 @@ const BrowserApp = () => {
   const [activeTab, setActiveTab] = useState("about")
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 font-sans flex flex-col overflow-x-hidden">
-      {/* Fixed Header */}
-      <header className="flex-none max-w-3xl w-full mx-auto bg-white/10 rounded-2xl shadow-xl p-8 mt-8 text-center border border-white/10">
-        <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{resume.name}</h1>
-        <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg">
-          {resume.contact.map((c) => (
-            <span key={c.label} className="flex items-center gap-1">
-              {c.value}
-            </span>
-          ))}
+    <div className="h-full w-full flex flex-col overflow-x-hidden" style={{ background: IE_LIGHT }}>
+      {/* IE Title Bar */}
+      <div style={{ background: IE_BLUE, color: "white", borderBottom: `2px solid ${IE_BORDER}` }} className="flex items-center px-3 py-1 select-none">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Internet_Explorer_9_icon.svg" alt="IE" className="h-6 w-6 mr-2" />
+        <span className="font-bold text-base">Aiden Huang - Personal Website - Microsoft Internet Explorer</span>
+        <div className="ml-auto flex items-center space-x-1">
+          <button className="w-6 h-6 flex items-center justify-center bg-[#e5e5e5] border border-[#bcbcbc] rounded hover:bg-[#c5c5c5] text-[#222]">_</button>
+          <button className="w-6 h-6 flex items-center justify-center bg-[#e5e5e5] border border-[#bcbcbc] rounded hover:bg-[#c5c5c5] text-[#222]">□</button>
+          <button className="w-6 h-6 flex items-center justify-center bg-[#e5e5e5] border border-[#bcbcbc] rounded hover:bg-[#c5c5c5] text-[#d00]">✕</button>
         </div>
-      </header>
-
-      {/* Scrollable Main Content */}
-      <main className="flex-1 overflow-y-auto px-4 py-8 flex flex-col items-center">
-        <div className="max-w-3xl w-full bg-white/5 rounded-2xl shadow-lg p-8 border border-white/10">
-          {/* Education */}
-          <Section title="Education">
-            <ul>
-              {resume.education.map((edu) => (
-                <li key={edu.school} className="mb-4">
-                  <div className="flex justify-between items-center flex-wrap">
-                    <span className="font-semibold text-white text-lg">{edu.degree}</span>
-                    <span className="text-sm text-gray-300">{edu.date}</span>
-                  </div>
-                  <div className="text-blue-200">{edu.school}</div>
-                  <div className="text-blue-200 mb-1">{edu.location}</div>
-                  {edu.achievements && (
-                    <ul className="list-disc list-inside text-gray-300 text-sm ml-2">
-                      {edu.achievements.map((a, i) => (
-                        <li key={i}>{a}</li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          {/* Experience */}
-          <Section title="Experience">
-            <ul>
-              {resume.experience.map((exp) => (
-                <li key={exp.title + exp.company} className="mb-6">
-                  <div className="flex justify-between items-center flex-wrap">
-                    <span className="font-semibold text-white text-lg">{exp.title}, {exp.company}</span>
-                    <span className="text-sm text-gray-300">{exp.date}</span>
-                  </div>
-                  <div className="text-blue-200 mb-1">{exp.location}</div>
-                  <ul className="list-disc list-inside text-gray-300 ml-2">
-                    {exp.bullets.map((b, i) => (
-                      <li key={i}>{b}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          {/* Projects */}
-          <Section title="Projects">
-            <ul>
-              {resume.projects.map((proj) => (
-                <li key={proj.name} className="mb-6">
-                  <div className="flex justify-between items-center flex-wrap">
-                    <span className="font-semibold text-white text-lg">{proj.name}</span>
-                    <span className="text-sm text-gray-300">{proj.date}</span>
-                  </div>
-                  <div className="text-blue-200 mb-1">{proj.tech}</div>
-                  <ul className="list-disc list-inside text-gray-300 ml-2">
-                    {proj.bullets.map((b, i) => (
-                      <li key={i}>{b}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          {/* Technical Skills */}
-          <Section title="Technical Skills">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <div className="font-semibold text-blue-300 mb-1">Languages</div>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {resume.skills.Languages.map((s) => (
-                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
-                  ))}
-                </div>
-                <div className="font-semibold text-blue-300 mb-1">Frameworks</div>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {resume.skills.Frameworks.map((s) => (
-                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <div className="font-semibold text-blue-300 mb-1">Developer Tools</div>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {resume.skills.Tools.map((s) => (
-                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
-                  ))}
-                </div>
-                <div className="font-semibold text-blue-300 mb-1">Cybersecurity</div>
-                <div className="flex flex-wrap gap-2">
-                  {resume.skills.Cybersecurity.map((s) => (
-                    <span key={s} className="bg-blue-800/40 px-2 py-1 rounded text-sm">{s}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Section>
-
-          {/* Hobbies */}
-          <Section title="Hobbies">
-            <div className="flex flex-wrap gap-3 text-blue-200">
-              {resume.hobbies.map((h) => (
-                <span key={h} className="bg-white/10 px-3 py-1 rounded-full shadow text-base">{h}</span>
-              ))}
-            </div>
-          </Section>
-
-          {/* Tab Switcher */}
-          <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                className={`px-4 py-2 rounded-full shadow-md ${
-                  activeTab === tab.id ? "bg-blue-800/40" : "bg-transparent"
-                }`}
-                onClick={() => setActiveTab(tab.id)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab Content */}
+      </div>
+      {/* IE Toolbar */}
+      <div style={{ background: "linear-gradient(180deg, #f4f8fb 0%, #dbeaf9 100%)", borderBottom: `1.5px solid ${IE_BORDER}` }} className="flex items-center px-2 py-1 gap-1">
+        <button className="px-2 py-1 border border-[#bcbcbc] rounded bg-white hover:bg-[#e5e5e5]">◀</button>
+        <button className="px-2 py-1 border border-[#bcbcbc] rounded bg-white hover:bg-[#e5e5e5]">▶</button>
+        <button className="px-2 py-1 border border-[#bcbcbc] rounded bg-white hover:bg-[#e5e5e5]">⟳</button>
+        <input className="ml-2 px-2 py-1 border border-[#bcbcbc] rounded w-2/3 bg-white text-black" value="aidenhuang.com" readOnly />
+        <button className="ml-2 px-3 py-1 border border-[#bcbcbc] rounded bg-[#e5f1fb] hover:bg-[#dbeaf9] text-[#1b5790] font-semibold">Go</button>
+      </div>
+      {/* Tabs Bar */}
+      <div style={{ background: IE_LIGHT, borderBottom: `1px solid ${IE_BORDER}` }} className="flex items-center px-3 py-2 gap-2">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            className={`px-4 py-1 rounded-t-md border border-b-0 text-sm font-semibold ${activeTab === tab.id ? 'bg-white border-[#bcbcbc] text-[#1b5790]' : 'bg-[#e5f1fb] border-[#bcbcbc] text-[#444] hover:bg-white'}`}
+            style={activeTab === tab.id ? { zIndex: 2, position: 'relative' } : {}}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto px-4 py-6 flex flex-col items-center" style={{ background: "#fff" }}>
+        <div className="max-w-3xl w-full">
           {activeTab === "about" && (
-            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
-              <h1 className="text-2xl font-bold mb-4">About Me</h1>
-              <p className="mb-4 text-blue-200">This is the about me page.</p>
-            </div>
+            <Section title="About Me">
+              <div className="flex flex-col items-center justify-center min-h-[300px] text-black">
+                <h1 className="text-2xl font-bold mb-4">About Me</h1>
+                <p className="mb-4 text-blue-200">This is the about me page.</p>
+              </div>
+            </Section>
           )}
           {activeTab === "projects" && (
-            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
-              <h1 className="text-2xl font-bold mb-4">Projects</h1>
-              <p className="mb-4 text-blue-200">This is the projects page.</p>
-            </div>
+            <Section title="Projects">
+              <div className="flex flex-col items-center justify-center min-h-[300px] text-black">
+                <h1 className="text-2xl font-bold mb-4">Projects</h1>
+                <p className="mb-4 text-blue-200">This is the projects page.</p>
+              </div>
+            </Section>
           )}
           {activeTab === "socials" && (
-            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
-              <h1 className="text-2xl font-bold mb-4">Socials</h1>
-              <p className="mb-4 text-blue-200">This is the socials page.</p>
-            </div>
+            <Section title="Socials">
+              <div className="flex flex-col items-center justify-center min-h-[300px] text-black">
+                <h1 className="text-2xl font-bold mb-4">Socials</h1>
+                <p className="mb-4 text-blue-200">This is the socials page.</p>
+              </div>
+            </Section>
           )}
           {activeTab === "resume" && (
-            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
-              <h1 className="text-2xl font-bold mb-4">Resume</h1>
-              <p className="mb-4 text-blue-200">This is the resume page.</p>
-            </div>
+            <Section title="Resume">
+              <div className="flex flex-col items-center justify-center min-h-[300px] text-black">
+                <h1 className="text-2xl font-bold mb-4">Resume</h1>
+                <p className="mb-4 text-blue-200">This is the resume page.</p>
+              </div>
+            </Section>
           )}
-          {activeTab === "lens" && <LensTab />}
+          {activeTab === "lens" && (
+            <Section title="Lens">
+              <LensTab />
+            </Section>
+          )}
         </div>
       </main>
     </div>

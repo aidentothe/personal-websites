@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useMemo } from "react"
 import { Rnd } from "react-rnd"
 import { motion } from "framer-motion"
-import { X, Minus } from "lucide-react"
+import { X } from "lucide-react"
 
 const Window = ({
   id,
@@ -15,19 +15,14 @@ const Window = ({
   onFocus,
   onDragStop,
   onResizeStop,
-  onMinimize,
   onClose,
   minY = 72,
+  minHeight = 220,
 }) => {
   const [isMaximized, setIsMaximized] = useState(false)
   const [prevSize, setPrevSize] = useState(size)
   const [prevPos, setPrevPos] = useState(position)
   const windowRef = useRef(null)
-
-  const handleMinimize = useCallback((e) => {
-    e.stopPropagation()
-    onMinimize && onMinimize(id)
-  }, [id, onMinimize])
 
   const handleClose = useCallback((e) => {
     e.stopPropagation()
@@ -69,14 +64,7 @@ const Window = ({
           {title}
         </div>
         <div className="flex items-center space-x-2">
-          <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400/90 text-yellow-900 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-200/60 shadow"
-            onClick={handleMinimize}
-            tabIndex={0}
-            aria-label="Minimize"
-          >
-            <Minus size={14} />
-          </button>
+          {/* Removed Minimize Button */}
           <button
             className="flex h-6 w-6 items-center justify-center rounded-full bg-red-400/90 text-red-900 hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-red-200/60 shadow"
             onClick={handleClose}
@@ -91,7 +79,9 @@ const Window = ({
         {children}
       </div>
     </motion.div>
-  ), [title, handleMinimize, handleClose, children])
+  ), [title, handleClose, children])
+
+  const minWindowHeight = typeof minHeight === 'number' ? minHeight : 220;
 
   return isMaximized ? (
     <Rnd
@@ -100,7 +90,7 @@ const Window = ({
       size={{ width: "100%", height: `calc(100% - ${minY}px)` }}
       style={{ zIndex }}
       minWidth={340}
-      minHeight={220}
+      minHeight={minWindowHeight}
       bounds="parent"
       disableDragging
       dragHandleClassName="window-drag-handle"
@@ -115,7 +105,7 @@ const Window = ({
       size={{ width: size.width, height: size.height }}
       style={{ zIndex }}
       minWidth={340}
-      minHeight={220}
+      minHeight={minWindowHeight}
       bounds="parent"
       dragHandleClassName="window-drag-handle"
       onMouseDown={onFocus}

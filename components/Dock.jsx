@@ -21,11 +21,11 @@ const Dock = memo(({ toggleWindow, windows }) => {
 
   return (
     <motion.div
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 flex items-end space-x-3 px-4 py-3 rounded-2xl bg-white/20 backdrop-blur-2xl shadow-2xl border border-white/30 z-[9999] transition-all"
+      className="fixed bottom-4 flex items-end space-x-3 px-4 py-3 rounded-2xl bg-white/20 backdrop-blur-2xl shadow-2xl border border-white/30 z-[9999] transition-all"
+      style={{ transform: 'translateX(-50%)', left: '50%' , boxShadow: '0 8px 40px 0 rgba(30,40,80,0.16)' }}
       initial={{ y: 100 }}
       animate={{ y: 0 }}
       transition={{ delay: 0.4, duration: 0.4, type: "spring" }}
-      style={{ boxShadow: '0 8px 40px 0 rgba(30,40,80,0.16)' }}
     >
       {dockIcons.map(({ icon, label, id }) => (
         <DockIcon
