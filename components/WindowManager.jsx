@@ -41,7 +41,7 @@ const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
       title: 'Spotify',
       minY,
       App: SpotifyApp,
-      minHeight: 400,
+      minHeight: 500,
     },
     {
       key: 'photos',
