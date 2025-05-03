@@ -2,7 +2,7 @@
 
 import { memo, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Terminal, Globe, Music, Image } from "lucide-react"
+import { Terminal, Globe, Music } from "lucide-react"
 
 const Dock = memo(({ toggleWindow, windows }) => {
   const getIconStyle = (id) => {
@@ -14,15 +14,14 @@ const Dock = memo(({ toggleWindow, windows }) => {
 
   // Memoize dock icons for smoother animation
   const dockIcons = useMemo(() => [
-    { icon: <Terminal size={32} />, label: "Terminal", id: "terminal" },
-    { icon: <Globe size={32} />, label: "Browser", id: "browser" },
-    { icon: <Music size={32} />, label: "Spotify", id: "spotify" },
-    { icon: <Image size={32} />, label: "Photos", id: "photos" },
+    { icon: <Terminal size={24} />, label: "Terminal", id: "terminal" },
+    { icon: <Globe size={24} />, label: "Browser", id: "browser" },
+    { icon: <Music size={24} />, label: "Spotify", id: "spotify" },
   ], [])
 
   return (
     <motion.div
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-end space-x-5 px-8 py-5 rounded-3xl bg-white/20 backdrop-blur-2xl shadow-2xl border border-white/30 z-[9999] transition-all"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 flex items-end space-x-3 px-4 py-3 rounded-2xl bg-white/20 backdrop-blur-2xl shadow-2xl border border-white/30 z-[9999] transition-all"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
       transition={{ delay: 0.4, duration: 0.4, type: "spring" }}

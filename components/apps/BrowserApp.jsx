@@ -107,7 +107,27 @@ const Section = ({ title, children }) => (
   </section>
 )
 
+const LensTab = () => {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
+      <h1 className="text-2xl font-bold mb-4">Lens</h1>
+      <p className="mb-4 text-blue-200">Photo gallery integration coming soon!</p>
+      {/* You can add photo grid or gallery logic here */}
+    </div>
+  )
+}
+
 const BrowserApp = () => {
+  const tabs = [
+    { id: "about", label: "About Me" },
+    { id: "projects", label: "Projects" },
+    { id: "socials", label: "Socials" },
+    { id: "resume", label: "Resume" },
+    { id: "lens", label: "Lens" },
+  ]
+
+  const [activeTab, setActiveTab] = useState("about")
+
   return (
     <div className="h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 font-sans flex flex-col overflow-x-hidden">
       {/* Fixed Header */}
@@ -230,6 +250,48 @@ const BrowserApp = () => {
               ))}
             </div>
           </Section>
+
+          {/* Tab Switcher */}
+          <div className="flex flex-wrap justify-center gap-4 text-blue-200 text-lg">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                className={`px-4 py-2 rounded-full shadow-md ${
+                  activeTab === tab.id ? "bg-blue-800/40" : "bg-transparent"
+                }`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === "about" && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
+              <h1 className="text-2xl font-bold mb-4">About Me</h1>
+              <p className="mb-4 text-blue-200">This is the about me page.</p>
+            </div>
+          )}
+          {activeTab === "projects" && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
+              <h1 className="text-2xl font-bold mb-4">Projects</h1>
+              <p className="mb-4 text-blue-200">This is the projects page.</p>
+            </div>
+          )}
+          {activeTab === "socials" && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
+              <h1 className="text-2xl font-bold mb-4">Socials</h1>
+              <p className="mb-4 text-blue-200">This is the socials page.</p>
+            </div>
+          )}
+          {activeTab === "resume" && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-white">
+              <h1 className="text-2xl font-bold mb-4">Resume</h1>
+              <p className="mb-4 text-blue-200">This is the resume page.</p>
+            </div>
+          )}
+          {activeTab === "lens" && <LensTab />}
         </div>
       </main>
     </div>

@@ -5,7 +5,6 @@ import Window from "./Window"
 import TerminalApp from "./apps/TerminalApp"
 import BrowserApp from "./apps/BrowserApp"
 import SpotifyApp from "./apps/SpotifyApp"
-import PhotosApp from "./apps/PhotosApp"
 
 const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
   const handleMinimize = (id) => {
@@ -42,12 +41,6 @@ const WindowManager = memo(({ windows, setWindows, bringToFront, minY }) => {
       minY,
       App: SpotifyApp,
       minHeight: 500,
-    },
-    {
-      key: 'photos',
-      title: 'Photos',
-      minY,
-      App: PhotosApp
     },
   ]), [minY])
 

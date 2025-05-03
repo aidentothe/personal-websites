@@ -12,7 +12,6 @@ const Desktop = () => {
     terminal: { visible: true, zIndex: 2, position: { x: 50, y: 100 }, size: { width: 600, height: 400 } },
     browser: { visible: true, zIndex: 1, position: { x: 700, y: 180 }, size: { width: 750, height: 750 } },
     spotify: { visible: true, zIndex: 3, position: { x: 100, y: 240 }, size: { width: 600, height: 400 } },
-    photos: { visible: false, zIndex: 0, position: { x: 400, y: 320 }, size: { width: 400, height: 400 } },
   })
   const [minY, setMinY] = useState(72-48) // Fallback default for browser chrome
   const isMobile = useMobile()
