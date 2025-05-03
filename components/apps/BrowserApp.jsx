@@ -109,7 +109,7 @@ const Section = ({ title, children }) => (
 
 const BrowserApp = () => {
   return (
-    <div className="min-h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8 flex flex-col items-center font-sans overflow-auto">
+    <div className="min-h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8 flex flex-col items-center font-sans overflow-y-auto">
       {/* Header */}
       <div className="max-w-3xl w-full bg-white/10 rounded-2xl shadow-xl p-8 mb-8 text-center border border-white/10">
         <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{resume.name}</h1>
