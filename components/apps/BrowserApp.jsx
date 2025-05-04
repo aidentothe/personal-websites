@@ -28,7 +28,7 @@ const resume = {
       location: "Cupertino, CA",
       date: "Aug 2021 – May 2025",
       achievements: [
-        "NSA Codebreaker High Performer/ Stokes Scholar",
+        "NSA Codebreaker High Performer/ Stokes Scholar ",
         "USACO Plat, 4x AIME, FRC Robotics Lead"
       ]
     }
