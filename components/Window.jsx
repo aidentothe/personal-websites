@@ -47,9 +47,9 @@ const Window = ({
   const handleDragStop = useCallback((e, d) => {
     if (!d) return
     const newX = Math.max(d.x, 0)
-    const newY = Math.max(d.y, minY)
+    const newY = Math.max(d.y, 0)
     onDragStop && onDragStop(e, { x: newX, y: newY })
-  }, [onDragStop, minY])
+  }, [onDragStop])
 
   const renderContent = useMemo(() => (
     <motion.div
@@ -59,6 +59,18 @@ const Window = ({
       transition={{ duration: 0.18 }}
       style={{ boxShadow: '0 8px 40px 0 rgba(30,40,80,0.16)', borderRadius: 0 }}
     >
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        aria-hidden="true"
+      >
+        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.18 }}>
+          <g stroke="#fff" strokeWidth="0.8">
+            <polygon points="200,20 380,380 20,380" fill="none" />
+            <polygon points="200,75 320,355 80,355" fill="none" />
+            <polygon points="200,140 270,320 130,320" fill="none" />
+          </g>
+        </svg>
+      </motion.div>
       <div className="window-drag-handle flex h-10 items-center justify-between bg-gradient-to-r from-gray-900/80 to-gray-800/70 px-4 border-b border-white/15">
         <div className="text-base font-semibold text-white/90 tracking-wide select-none drop-shadow-md">
           {title}
