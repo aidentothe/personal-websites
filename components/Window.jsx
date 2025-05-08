@@ -63,11 +63,18 @@ const Window = ({
         className="absolute inset-0 pointer-events-none z-0"
         aria-hidden="true"
       >
-        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.18 }}>
-          <g stroke="#fff" strokeWidth="0.8">
-            <polygon points="200,20 380,380 20,380" fill="none" />
-            <polygon points="200,75 320,355 80,355" fill="none" />
-            <polygon points="200,140 270,320 130,320" fill="none" />
+        {/* Intricate SVG fractal: Mandelbrot set (approximation) */}
+        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.22, filter: 'blur(0.5px)' }}>
+          <g>
+            {/* Mandelbrot set approximation using circles */}
+            {Array.from({length: 1800}).map((_, i) => {
+              // Generate pseudo-random points in Mandelbrot-like shape
+              const theta = (i / 1800) * 2 * Math.PI * 8;
+              const r = 180 * Math.pow(Math.abs(Math.sin(theta * 0.5)), 1.8);
+              const x = 200 + Math.cos(theta) * r * (0.7 + 0.3 * Math.sin(theta * 2));
+              const y = 200 + Math.sin(theta) * r * (0.7 + 0.3 * Math.cos(theta * 2));
+              return <circle key={i} cx={x} cy={y} r={Math.max(0.7, 2.5 - r * 0.01)} fill="#fff" fillOpacity="0.15" />;
+            })}
           </g>
         </svg>
       </motion.div>
