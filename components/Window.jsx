@@ -53,11 +53,11 @@ const Window = ({
 
   const renderContent = useMemo(() => (
     <motion.div
-      className="flex h-full w-full flex-col overflow-hidden shadow-2xl backdrop-blur-xl bg-white/20 border border-white/10"
+      className="flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-2xl backdrop-blur-xl bg-white/20 border border-white/10"
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.18 }}
-      style={{ boxShadow: '0 8px 40px 0 rgba(30,40,80,0.16)', borderRadius: 0 }}
+      style={{ boxShadow: '0 8px 40px 0 rgba(30,40,80,0.16)', borderRadius: 24 }}
     >
       <motion.div
         className="absolute inset-0 pointer-events-none z-0"
