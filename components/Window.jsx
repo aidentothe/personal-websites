@@ -63,19 +63,32 @@ const Window = ({
         className="absolute inset-0 pointer-events-none z-0"
         aria-hidden="true"
       >
-        {/* Intricate SVG fractal: Mandelbrot set (approximation) */}
-        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.22, filter: 'blur(0.5px)' }}>
-          <g>
-            {/* Mandelbrot set approximation using circles */}
-            {Array.from({length: 1800}).map((_, i) => {
-              // Generate pseudo-random points in Mandelbrot-like shape
-              const theta = (i / 1800) * 2 * Math.PI * 8;
-              const r = 180 * Math.pow(Math.abs(Math.sin(theta * 0.5)), 1.8);
-              const x = 200 + Math.cos(theta) * r * (0.7 + 0.3 * Math.sin(theta * 2));
-              const y = 200 + Math.sin(theta) * r * (0.7 + 0.3 * Math.cos(theta * 2));
-              return <circle key={i} cx={x} cy={y} r={Math.max(0.7, 2.5 - r * 0.01)} fill="#fff" fillOpacity="0.15" />;
-            })}
-          </g>
+        {/* Nanotube/hexagonal tunnel fractal SVG */}
+        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.22, filter: 'blur(0.3px)' }}>
+          {Array.from({length: 18}).map((_, layerIdx) => {
+            const N = 12; // hexagon sides
+            const R = 60 + layerIdx * 13; // radius grows per layer
+            const cx = 200, cy = 200;
+            // Draw hexagon
+            let points = [];
+            for (let i = 0; i < N; ++i) {
+              const angle = (2 * Math.PI * i) / N;
+              points.push([
+                cx + Math.cos(angle) * R,
+                cy + Math.sin(angle) * R
+              ]);
+            }
+            // Draw lines between vertices (hexagon)
+            const lines = points.map((pt, i) => {
+              const next = points[(i+1)%N];
+              return <line key={"l"+layerIdx+"-"+i} x1={pt[0]} y1={pt[1]} x2={next[0]} y2={next[1]} stroke="#fff" strokeWidth={5-layerIdx*0.23} strokeOpacity="0.17" />
+            });
+            // Draw circles at vertices
+            const circles = points.map((pt, i) => (
+              <circle key={"c"+layerIdx+"-"+i} cx={pt[0]} cy={pt[1]} r={8.5-Math.max(0,layerIdx*0.35)} fill="#fff" fillOpacity="0.21" />
+            ));
+            return <g key={layerIdx}>{lines}{circles}</g>;
+          })}
         </svg>
       </motion.div>
       <div className="window-drag-handle flex h-10 items-center justify-between bg-gradient-to-r from-gray-900/80 to-gray-800/70 px-4 border-b border-white/15">
