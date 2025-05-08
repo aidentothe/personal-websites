@@ -73,32 +73,34 @@ const Window = ({
         className="absolute inset-0 pointer-events-none z-0"
         aria-hidden="true"
       >
-        {/* Nanotube/hexagonal tunnel fractal SVG */}
-        <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.22, filter: 'blur(0.3px)' }}>
-          {Array.from({length: 18}).map((_, layerIdx) => {
-            const N = 12; // hexagon sides
-            const R = 60 + layerIdx * 13; // radius grows per layer
-            const cx = 200, cy = 200;
-            // Draw hexagon
-            let points = [];
-            for (let i = 0; i < N; ++i) {
-              const angle = (2 * Math.PI * i) / N;
-              points.push([
-                cx + Math.cos(angle) * R,
-                cy + Math.sin(angle) * R
-              ]);
+        {/* 5 Sierpinski triangles, spaced, forming a rectangle, legible */}
+        <svg width="100%" height="100%" viewBox="0 0 500 330" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.15 }}>
+          {(() => {
+            function sierpinski(x, y, size, depth, keyPrefix) {
+              if (depth === 0) {
+                const h = size * Math.sqrt(3) / 2;
+                return [<polygon key={keyPrefix} points={`$ {x},$ {y+h} $ {x+size/2},$ {y} $ {x+size},$ {y+h}`} fill="#fff" fillOpacity="0.13" />];
+              }
+              const half = size / 2;
+              const h = size * Math.sqrt(3) / 2;
+              return [
+                ...sierpinski(x, y + h/2, half, depth-1, keyPrefix+"a"),
+                ...sierpinski(x + half/2, y, half, depth-1, keyPrefix+"b"),
+                ...sierpinski(x + half, y + h/2, half, depth-1, keyPrefix+"c")
+              ];
             }
-            // Draw lines between vertices (hexagon)
-            const lines = points.map((pt, i) => {
-              const next = points[(i+1)%N];
-              return <line key={"l"+layerIdx+"-"+i} x1={pt[0]} y1={pt[1]} x2={next[0]} y2={next[1]} stroke="#fff" strokeWidth={5-layerIdx*0.23} strokeOpacity="0.17" />
-            });
-            // Draw circles at vertices
-            const circles = points.map((pt, i) => (
-              <circle key={"c"+layerIdx+"-"+i} cx={pt[0]} cy={pt[1]} r={8.5-Math.max(0,layerIdx*0.35)} fill="#fff" fillOpacity="0.21" />
-            ));
-            return <g key={layerIdx}>{lines}{circles}</g>;
-          })}
+            // Layout: 2 on top row, 3 on bottom row, evenly spaced
+            const tris = [];
+            const size = 110, gapX = 35, gapY = 30;
+            // Top row (centered)
+            tris.push(...sierpinski(85, 18, size, 4, "T1"));
+            tris.push(...sierpinski(85+size+gapX, 18, size, 4, "T2"));
+            // Bottom row
+            tris.push(...sierpinski(0, 18+size+gapY, size, 4, "B1"));
+            tris.push(...sierpinski(size+gapX, 18+size+gapY, size, 4, "B2"));
+            tris.push(...sierpinski(2*(size+gapX), 18+size+gapY, size, 4, "B3"));
+            return tris;
+          })()}
         </svg>
       </motion.div>
       <div className="window-drag-handle flex h-10 items-center justify-between bg-gradient-to-r from-gray-900/80 to-gray-800/70 px-4 border-b border-white/15">
