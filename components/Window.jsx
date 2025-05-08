@@ -46,14 +46,20 @@ const Window = ({
 
   const handleDragStop = useCallback((e, d) => {
     if (!d) return
-    const newX = Math.max(d.x, 0)
-    const newY = Math.max(d.y, 0)
+    const windowW = size?.width || 400;
+    const windowH = size?.height || 400;
+    const menuBarHeight = 44; // px, adjust if needed for your header
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+    // Clamp so top menu bar always visible, but allow edges to go out
+    const newX = Math.min(Math.max(d.x, -(windowW - 60)), screenW - 60);
+    const newY = Math.min(Math.max(d.y, 0), screenH - menuBarHeight);
     onDragStop && onDragStop(e, { x: newX, y: newY })
-  }, [onDragStop])
+  }, [onDragStop, size])
 
   const renderContent = useMemo(() => (
     <motion.div
-      className="flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-2xl backdrop-blur-xl bg-white/20 border border-white/10"
+      className="flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-2xl backdrop-blur-xl bg-white/20"
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.18 }}
