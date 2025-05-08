@@ -43,7 +43,7 @@ const Dock = memo(({ toggleWindow, windows }) => {
 const DockIcon = memo(({ icon, label, onClick, className }) => {
   return (
     <motion.button
-      className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-black/40 hover:bg-black/60 ${className} transition-all duration-200 hover:ring-2 hover:ring-white/30 focus:outline-none focus:ring-2 focus:ring-blue-200/60 shadow-lg`}
+      className={`flex h-12 w-12 items-center justify-center rounded-xl bg-black/40 hover:bg-black/60 ${className} transition-all duration-200 hover:ring-2 hover:ring-white/30 focus:outline-none focus:ring-2 focus:ring-blue-200/60 shadow-lg`}
       onClick={onClick}
       whileHover={{ scale: 1.18 }}
       whileTap={{ scale: 0.95 }}

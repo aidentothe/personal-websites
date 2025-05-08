@@ -9,6 +9,7 @@ const SpotifyApp = () => {
         allowTransparency="true"
         allow="encrypted-media"
         title="Spotify Player"
+        style={{ borderRadius: 0 }} // Remove border-radius for square corners
       ></iframe>
     </div>
   )

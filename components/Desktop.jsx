@@ -17,6 +17,33 @@ const Desktop = () => {
   const isMobile = useMobile()
 
   useEffect(() => {
+    // On mount, set up windows for 3-column layout:
+    // Left third: split vertically, terminal (top), spotify (bottom)
+    // Right two-thirds: browser full height
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+    const leftW = Math.floor(screenW / 3);
+    const rightW = screenW - leftW;
+    setWindows({
+      terminal: {
+        visible: true,
+        zIndex: 3,
+        position: { x: 0, y: 0 },
+        size: { width: leftW, height: Math.floor(screenH / 2) }
+      },
+      spotify: {
+        visible: true,
+        zIndex: 2,
+        position: { x: 0, y: Math.floor(screenH / 2) },
+        size: { width: leftW, height: screenH - Math.floor(screenH / 2) }
+      },
+      browser: {
+        visible: true,
+        zIndex: 1,
+        position: { x: leftW, y: 0 },
+        size: { width: rightW, height: screenH }
+      }
+    });
     const estimateMinY = () => {
       const safeMargin = 64
       const gap = window.screenY ?? 0 // offset from monitor top to window
