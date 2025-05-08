@@ -79,7 +79,7 @@ const Window = ({
             function sierpinski(x, y, size, depth, keyPrefix) {
               if (depth === 0) {
                 const h = size * Math.sqrt(3) / 2;
-                return [<polygon key={keyPrefix} points={`$ {x},$ {y+h} $ {x+size/2},$ {y} $ {x+size},$ {y+h}`} fill="#fff" fillOpacity="0.13" />];
+                return [<polygon key={keyPrefix} points={`${x},${y+h} ${x+size/2},${y} ${x+size},${y+h}`} fill="#fff" fillOpacity="0.13" />];
               }
               const half = size / 2;
               const h = size * Math.sqrt(3) / 2;
@@ -89,13 +89,10 @@ const Window = ({
                 ...sierpinski(x + half, y + h/2, half, depth-1, keyPrefix+"c")
               ];
             }
-            // Layout: 2 on top row, 3 on bottom row, evenly spaced
             const tris = [];
             const size = 110, gapX = 35, gapY = 30;
-            // Top row (centered)
             tris.push(...sierpinski(85, 18, size, 4, "T1"));
             tris.push(...sierpinski(85+size+gapX, 18, size, 4, "T2"));
-            // Bottom row
             tris.push(...sierpinski(0, 18+size+gapY, size, 4, "B1"));
             tris.push(...sierpinski(size+gapX, 18+size+gapY, size, 4, "B2"));
             tris.push(...sierpinski(2*(size+gapX), 18+size+gapY, size, 4, "B3"));

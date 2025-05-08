@@ -41,7 +41,7 @@ const Desktop = () => {
         visible: true,
         zIndex: 1,
         position: { x: leftW, y: 0 },
-        size: { width: rightW, height: screenH }
+        size: { width: Math.floor(rightW * 0.6), height: Math.floor(screenH * 0.65) }
       }
     });
     const estimateMinY = () => {
