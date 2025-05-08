@@ -46,14 +46,18 @@ const Window = ({
 
   const handleDragStop = useCallback((e, d) => {
     if (!d) return
-    const windowW = size?.width || 400;
-    const windowH = size?.height || 400;
-    const menuBarHeight = 44; // px, adjust if needed for your header
-    const screenW = window.innerWidth;
-    const screenH = window.innerHeight;
-    // Clamp so top menu bar always visible, but allow edges to go out
-    const newX = Math.min(Math.max(d.x, -(windowW - 60)), screenW - 60);
-    const newY = Math.min(Math.max(d.y, 0), screenH - menuBarHeight);
+    const windowW = size?.width || 400
+    const windowH = size?.height || 400
+    const menuBarHeight = 44 // px, adjust if needed for your header
+    const screenW = window.innerWidth
+    const screenH = window.innerHeight
+    // Allow window to be dragged fully off any edge except the top menu bar
+    let newX = d.x
+    let newY = d.y
+    // Prevent the top menu bar from moving above the viewport
+    if (newY < 0) newY = 0
+    // If the window is dragged so far down that only the menu bar is visible, clamp so menu bar stays in view
+    if (newY > screenH - menuBarHeight) newY = screenH - menuBarHeight
     onDragStop && onDragStop(e, { x: newX, y: newY })
   }, [onDragStop, size])
 
