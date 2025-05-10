@@ -19,12 +19,12 @@ export default function BootScreen() {
         <div className="h-24 w-24 rounded-full border-4 border-blue-500 flex items-center justify-center bg-black">
           {/* Stylized logo: two thick white bars forming an 'A' with a circle below, matching the provided image */}
           <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Left bar */}
-            <rect x="17" y="15" width="14" height="50" rx="2" fill="#fff" transform="rotate(-10 17 15)" />
-            {/* Right bar */}
-            <rect x="59" y="15" width="14" height="50" rx="2" fill="#fff" transform="rotate(10 59 15)" />
+            {/* Left bar (slanting from top center to bottom left) */}
+            <rect x="28" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(-13 34 40)" />
+            {/* Right bar (slanting from top center to bottom right) */}
+            <rect x="50" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(13 56 40)" />
             {/* Circle */}
-            <circle cx="45" cy="73" r="12" fill="#fff" />
+            <circle cx="45" cy="74" r="11" fill="#fff" />
           </svg>
         </div>
       </motion.div>
