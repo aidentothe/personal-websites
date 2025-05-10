@@ -16,12 +16,17 @@ export default function BootScreen() {
         transition={{ delay: 0.5, duration: 0.8 }}
         className="mb-8"
       >
-        {/* Stylized logo on gray background */}
         <div className="h-24 w-24 flex items-center justify-center">
-          <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
-            <rect x="28" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(-13 34 40)" />
-            <rect x="50" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(13 56 40)" />
-            <circle cx="45" cy="74" r="11" fill="#fff" />
+          {/* AidenOS logomark */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            className="h-full w-full text-white"
+            fill="currentColor"
+          >
+            {/* stylised exclamation‑mark / "A" glyph */}
+            <path d="M28 82 L44 10 L56 10 L72 82 L60 82 L50 40 L40 82 Z" />
+            <circle cx="50" cy="92" r="8" />
           </svg>
         </div>
       </motion.div>
