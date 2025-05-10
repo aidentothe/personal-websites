@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 export default function BootScreen() {
   return (
     <motion.div
-      className="flex h-full w-full flex-col items-center justify-center bg-black"
+      className="flex h-full w-full flex-col items-center justify-center bg-gray-300"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -16,14 +16,11 @@ export default function BootScreen() {
         transition={{ delay: 0.5, duration: 0.8 }}
         className="mb-8"
       >
-        <div className="h-24 w-24 rounded-full border-4 border-blue-500 flex items-center justify-center bg-black">
-          {/* Stylized logo: two thick white bars forming an 'A' with a circle below, matching the provided image */}
-          <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Left bar (slanting from top center to bottom left) */}
+        {/* Stylized logo on gray background */}
+        <div className="h-24 w-24 flex items-center justify-center">
+          <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
             <rect x="28" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(-13 34 40)" />
-            {/* Right bar (slanting from top center to bottom right) */}
             <rect x="50" y="15" width="12" height="50" rx="2" fill="#fff" transform="rotate(13 56 40)" />
-            {/* Circle */}
             <circle cx="45" cy="74" r="11" fill="#fff" />
           </svg>
         </div>
@@ -52,5 +49,5 @@ export default function BootScreen() {
         />
       </motion.div>
     </motion.div>
-  )
+  );
 }
