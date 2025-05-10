@@ -41,7 +41,7 @@ export default function BootScreen() {
       </motion.h1>
 
       <motion.div
-        className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden"
+        className="w-64 h-2 bg-indigo-800 rounded-full overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
